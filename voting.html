@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Fest Voting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('images/College Voting.jpg');
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .celebrity {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .celebrity img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .vote-button, .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .vote-button:hover, .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .celebrity-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vote for Your Favorite Celebrity</h1>
+        <div id="celebrity-list" class="celebrity-list"></div>
+        <button class="submit-button" onclick="submitVotes()">Submit Vote</button>
+    </div>
+
+    <script>
+        const celebrities = [
+            { id: 1, name: "Celebrity A", image: "images/celebrity1.jpg", votes: 0 },
+            { id: 2, name: "Celebrity B", image: "images/celebrity2.jpg", votes: 0 },
+            { id: 3, name: "Celebrity C", image: "images/celebrity3.jpg", votes: 0 }
+        ];
+
+        function renderCelebrities() {
+            const list = document.getElementById("celebrity-list");
+            list.innerHTML = "";
+            celebrities.forEach(celeb => {
+                const celebDiv = document.createElement("div");
+                celebDiv.classList.add("celebrity");
+                celebDiv.innerHTML = `
+                    <img src="${celeb.image}" alt="${celeb.name}">
+                    <h2>${celeb.name}</h2>
+                    <p>Votes: <strong>${celeb.votes}</strong></p>
+                    <button class="vote-button" onclick="vote(${celeb.id})">Vote</button>
+                `;
+                list.appendChild(celebDiv);
+            });
+        }
+
+        function vote(id) {
+            const celeb = celebrities.find(c => c.id === id);
+            if (celeb) {
+                celeb.votes++;
+                renderCelebrities();
+            }
+        }
+
+        function submitVotes() {
+            alert("Your votes have been submitted successfully!");
+        }
+
+        renderCelebrities();
+    </script>
+</body>
+</html>
